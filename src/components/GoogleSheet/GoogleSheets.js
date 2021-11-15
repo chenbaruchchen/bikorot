@@ -66,13 +66,17 @@ const doc = new GoogleSpreadsheet(
 //   // await rows[1].save(); // save updates
 //   // await rows[1].delete(); // delete a row
 // }
-
-export async function addArrayToNewSheet(array) {
+ 
+export async function addArrayToNewSheet(array, headLine) {
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
+  
+ headLine=headLine +"-" +array[1].details+ "-"+ array[2].details 
   const sheet = await doc.addSheet({
     headerValues: ["index", "quatsion", "rate", "details", "found"]
-  });
+  
+  ,title: headLine 
+})
 
   let table = [];
   array.forEach((element) => {

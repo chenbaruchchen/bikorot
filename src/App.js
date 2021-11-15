@@ -2,6 +2,7 @@ import "./styles.css";
 
 import { useState } from "react";
 import Menu from "./components/TabBar";
+import Footer from "./components/Footer";
 
 import Watch from "./components/Watch/Watch";
 
@@ -20,7 +21,8 @@ export default function App() {
 
   */}
       {/* {tab ? <Watch /> : <Add2 />}{" "} */}
-      {tab ? <Watch /> : <AddNew />}{" "}
+      {tab ? <Watch /> : <AddNew />}
+      <Footer />
     </div>
   );
 }

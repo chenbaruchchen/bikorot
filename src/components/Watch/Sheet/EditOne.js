@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Serch from "./Serch";
 
-import quatsions from "../../../../table";
+import quatsions from "../../../tables/table";
 import { X, Check, Edit } from "react-feather";
 import Model from "./Model";
 export default function EditOne(props) {
   const [selected, setSelected] = useState(null);
   const [openModel, setOpenModel] = useState(false);
   if (selected === null) {
-    return <Serch setSelected={setSelected} />;
+    return <Serch bikoretKind={props.bikoretKind} setSelected={setSelected} />;
   } else {
     return (
       <div style={displayQuatsionStyle}>

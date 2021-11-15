@@ -1,3 +1,6 @@
+import { script_scoreSadir } from "../../../scripts/Score/CalaulateScoreSadir";
+import { useState } from "react";
+import "./table.css";
 const rowStyle = {
   boxSizing: "border-box",
   flexShrink: 0,
@@ -25,5 +28,40 @@ export default function Table(props) {
     </ul>
   ));
 
-  return <div>{table}</div>;
+  let listQutsion = props.bikoretKind.map((subject) => {
+    return subject.list.map((q) => <Quatsion row={rows[q.index]} q={q} />);
+  });
+  return (
+    <div>
+      <div>{listQutsion}</div>
+      <button onClick={() => script_scoreSadir(rows)}>ציון</button>
+      {table}
+    </div>
+  );
+}
+
+function Quatsion(props) {
+  const [open, setOpen] = useState(false);
+
+  let className = "box-2";
+  if (open) {
+    className = className + "open";
+  }
+  return (
+    <div
+      onClick={(e) => {
+        setOpen(!open); 
+        //  e.target.classList.add("open");
+        // console.log(e.target.classList);
+      }}
+      className={className}
+    >
+      <div className="box-3"> 
+      ({props.q.index} {props.q.quatsion}  </div>
+
+      {/* <div className="box-3">({props.q.index}</div> */}
+
+      {open ? <div className="box-3">{props.row._rawData[3]}</div> : <></>}
+    </div>
+  );
 }

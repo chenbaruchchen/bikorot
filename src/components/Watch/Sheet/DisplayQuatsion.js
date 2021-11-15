@@ -1,5 +1,5 @@
 import { Check, Edit } from "react-feather";
-import quatsions from "../../../../table";
+import quatsions from "../../../tables/table";
 import { useState, useEffect } from "react";
 import { getSheets } from "../../GoogleSheet/GoogleSheets";
 import ReactStars from "react-rating-stars-component";

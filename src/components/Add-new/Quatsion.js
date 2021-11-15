@@ -20,12 +20,14 @@ const quatsionStyle = {
 
 export default function Quatsion(props) {
   const [openModel, setOpemModel] = useState(false);
+
   return (
     <>
       {openModel && (
         <Model
           setOpemModel={setOpemModel}
           openModel={openModel}
+          PlaceHolderValueTamplate={props.quatsion.value}
           quatsion={props.quatsion}
           answers={props.answers}
           setAnswers={props.setAnswers}

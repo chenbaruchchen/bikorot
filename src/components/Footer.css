@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 25px;
+  background: #eceeee;
+}
+.footer div {
+  height: 70px;
+  width: 70px;
+  background-image: url("https://lh3.googleusercontent.com/BJ4rN3hjnCd91dJ-PBzWnaiAE0XGKs7_Npr7KiSkwRvJJGp4jTYAHeTEZH0bOOw8Lw3gdQ=s85");
+
+  /* background-image: url("../../public/masan.jfif"); */
+  display: flex;
+  margin-right: 10vw;
+  margin-left: 10vw;
+  border-radius: 100px;
+  margin-bottom: 14px;
+}
+
+div {
+}

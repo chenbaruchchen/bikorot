@@ -3,7 +3,7 @@ import { useState } from "react";
 import Quatision from "./Quatsion";
 import { ArrowRightCircle, X } from "react-feather";
 import ReactStars from "react-rating-stars-component";
-import firstQLst from "../../../firstQ";
+import firstQLst from "../../tables/firstQ";
 
 const wrapStyle = {
   boxSizing: "border-box",

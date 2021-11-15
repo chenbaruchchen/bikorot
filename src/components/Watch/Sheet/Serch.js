@@ -1,12 +1,12 @@
 import React from "react";
-import Quatsion from "../../../../table";
+import { sadir } from "../../../tables/table";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 function App(props) {
   function getItems() {
     let items = [];
     let i = 0;
-    Quatsion.forEach((subject) => {
+    props.bikoretKind.forEach((subject) => {
       subject.list.forEach((quatsion) => {
         items.push({
           id: i,

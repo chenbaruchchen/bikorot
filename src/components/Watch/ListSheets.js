@@ -1,19 +1,6 @@
 import { getSheets } from "../GoogleSheet/GoogleSheets";
 import { useEffect, useState } from "react";
-// const sheet = {
-//   width: "100%",
-//   flexShrink: 0,
-//   height: 106,
-//   display: "flex",
-//   flexDirection: "row",
-//   justifyContent: "space-evenly",
-//   alignItems: "center",
-//   boxShadow: "4px 4px 2px 0px rgba(0, 0, 0, 0.25)",
-//   backgroundColor: "#ffffff",
-//   overflow: "visible",
-//   borderRadius: 36,
-//   margin: 10
-// };
+
 
 const sheet = {
   margin: 12,

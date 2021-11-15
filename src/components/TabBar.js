@@ -15,7 +15,8 @@ const menu = {
   padding: "12px 56px 12px 56px",
   boxShadow: "3px 3px 2px 0px rgba(0, 0, 0, 0.25)",
   // backgroundColor: "#e8ed4a",
-  backgroundColor: yellow,
+  // backgroundColor: yellow,
+  backgroundColor: "#eceeee",
 
   overflow: "visible"
 };

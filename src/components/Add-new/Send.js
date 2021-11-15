@@ -1,5 +1,5 @@
 import { addArrayToNewSheet } from "../GoogleSheet/GoogleSheets";
-
+import setRateBySubject from "../../scripts/setRateOfObjects";
 const submitWrap = {
   boxSizing: "border-box",
   width: "100%",
@@ -19,10 +19,10 @@ const submit = {
   justifyContent: "space-evenly",
   alignItems: "center",
   boxShadow: "4px 4px 2px 0px rgba(0, 0, 0, 0.25)",
-  backgroundColor: "#ddbea9",
+  backgroundColor: "#eceeee",
   overflow: "visible",
   borderRadius: 36,
-  border: "1px solid #F9D5A7"
+  border: "1px solid white"
 };
 
 export default function Send(props) {
@@ -30,7 +30,8 @@ export default function Send(props) {
     <div style={submitWrap}>
       <div
         onClick={() => {
-          addArrayToNewSheet(props.answers);
+          console.log(props.headLine);
+          addArrayToNewSheet(props.answers, props.headLine);
           alert("add ");
         }}
         style={submit}

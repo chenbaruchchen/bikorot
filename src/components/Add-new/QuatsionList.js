@@ -1,5 +1,6 @@
-import subjects from "../../../../table";
-import first from "../../../../first";
+import { miloeim, tash, sadir } from "../../tables/table";
+import ReactStars from "react-rating-stars-component";
+
 import Quatsion from "./Quatsion";
 import Serch from "./Serch";
 import FirstQList from "./FirstQList";
@@ -32,14 +33,17 @@ const styleSubject = {
 export default function QuatsionList(props) {
   const [chosen, setChosen] = useState(false);
   const [openFirstQlist, setOpenFirstQlist] = useState(false);
+  ///reder proper kind of bikoret base on dropDown
 
-  let Qlist = subjects.map((subject) => (
+  let Qlist = props.bikoretKind.map((subject) => (
     <div style={styleSubject}>
       <h3>{subject.name}</h3>
+
       <br />
       {subject.list.map((quatsion) => (
         <>
           <Quatsion
+            bikoretKind={props.bikoretKind}
             answers={props.answers}
             setAnswers={props.setAnswers}
             quatsion={quatsion}
@@ -50,7 +54,7 @@ export default function QuatsionList(props) {
   ));
   return (
     <div style={styleList}>
-      <Serch setChosen={setChosen} />
+      <Serch bikoretKind={props.bikoretKind} setChosen={setChosen} />
       {chosen !== false && (
         <>
           {console.log(chosen)}

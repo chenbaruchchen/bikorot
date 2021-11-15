@@ -1,29 +1,69 @@
 import QuatsionList from "./QuatsionList";
-import subjects from "../../../../table";
-import { useState } from "react";
+import { miloeim, tash, sadir } from "../../tables/table";
+import { useState, useEffect } from "react";
 import Send from "./Send";
 import Serch from "./Serch";
-function getEmptyAns() {
-  let table = [];
-  subjects.forEach((subject) => {
-    subject.list.forEach((quatsion) => {
-      table.push({ rate: "rate", details: "details", found: "found" });
-    });
-  });
-  return table;
-}
+import DropDownChoseSubject from "./DropDownChoseSubject.js/DropDownChoseSubject";
+import firstQList from "../../tables/firstQ";
 export default function Add() {
-  const [answers, setAnswers] = useState(getEmptyAns());
+  const [bikoretKind, setBikoretKind] = useState(sadir);
 
+  const [answers, setAnswers] = useState(getEmptyAns());
+  useEffect(() => {
+    setAnswers(getEmptyAns());
+  }, [bikoretKind]);
+
+  function headlineFunction() {
+    let headLine = "";
+
+    ///reder proper kind of bikoret base on dropDown
+    if (bikoretKind === miloeim) {
+      headLine = "מילואים";
+    }
+    if (bikoretKind === tash) {
+      headLine = 'ת"ש';
+    }
+    if (bikoretKind === sadir) {
+      headLine = "סדיר";
+    }
+
+    return headLine;
+  }
+
+  function getEmptyAns() {
+    let table = [];
+
+    if (bikoretKind !== miloeim) {
+      bikoretKind.forEach((subject) => {
+        subject.list.forEach((quatsion) => {
+          table.push({ rate: "rate", details: "details", found: "found" });
+        });
+      });
+    }
+    if (bikoretKind === miloeim) {
+      bikoretKind.forEach((subject) => {
+        subject.list.forEach((quatsion) => {
+          table.push({ rate: "rate", details: quatsion.value, found: "found" });
+        });
+      });
+    }
+
+    return table;
+  }
+
+  // headlineFunction()
   return (
     <div>
-      <h2>שאלון למבקר בתחום הסדיר</h2>
-
+      <DropDownChoseSubject setBikoretKind={setBikoretKind} />
+      <h2>שאלון למבקר בתחום ה{headlineFunction()} </h2>
       <br />
-
-      <QuatsionList answers={answers} setAnswers={setAnswers} />
+      <QuatsionList
+        bikoretKind={bikoretKind}
+        answers={answers}
+        setAnswers={setAnswers}
+      />
       <br />
-      <Send answers={answers} />
+      <Send headLine={headlineFunction()} answers={answers} />
     </div>
   );
 }

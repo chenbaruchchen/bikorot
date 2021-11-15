@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { ArrowRightCircle, X, Edit } from "react-feather";
 import { getSheets } from "../../GoogleSheet/GoogleSheets";
-import Serch from "./Serch";
 import Table from "./Table";
 import EditOne from "./EditOne";
-import DisplayQuatsion from "./DisplayQuatsion";
+import EditRate from "./EditRate/EditRate";
+import Tabs from "./tabs/Main";
+import Download from "./Download";
 
-import quatsions from "../../../../table";
-
-let color = "#ddbea9";
+import { sadir, tash, miloeim } from "../../../tables/table";
 
 const stack = {
   width: "100%",
@@ -59,32 +58,43 @@ const headerInner = {
   overflow: "visible"
 };
 
-const displayQuatsionStyle = {
-  flexShrink: 0,
-  width: 304,
-  height: 224,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-evenly",
-  alignItems: "center",
-  boxShadow: "inset 3px 3px 3px 3px rgba(0, 0, 0, 0.25)",
-  overflow: "visible",
-  borderRadius: 25
-};
-
 export default function Sheet(props) {
   const [rows, setRows] = useState(false);
   const [displayQuatsion, setDisplayQuatsion] = useState(false);
+  const [sheetTitle, setSheetTitle] = useState("");
+  const [bikoretKind, setBikoretKind] = useState("");
+  const [tab, setTab] = useState("watch");
+  const [sheetId, setSheetId] = useState("");
 
   useEffect(() => {
     function getRows() {
       getSheets().then((doc) => {
         const sheet = doc.sheetsByIndex[props.sheetIndex];
         sheet.getRows().then((res) => setRows(res));
+        setSheetTitle(sheet.title);
+        setSheetId(sheet._rawProperties.sheetId);
       });
     }
     getRows();
   }, []);
+  useEffect(() => {
+    ///chack kind of bikoret to render
+    let str = sheetTitle;
+    if (str.match(/סדיר/g) !== null) {
+      str = "סדיר";
+
+      setBikoretKind(sadir);
+      // let fun=  ()=>setBikoretKind(sadir)
+      //  fun()
+    } else if (str.match(/ת"ש/g) !== null) {
+      str = 'ת"ש';
+      setBikoretKind(tash);
+    } else if (str.match(/מילואים/g) !== null) {
+      str = "מילואים";
+      setBikoretKind(miloeim);
+    }
+  });
+
   let listrows = <></>;
   if (rows !== false) {
     listrows = rows.map((row) => (
@@ -98,7 +108,7 @@ export default function Sheet(props) {
 
   const getQuatsionByIndex = () => {
     let text = "";
-    quatsions.forEach((subject) => {
+    bikoretKind.forEach((subject) => {
       subject.list.forEach((quatsion) => {
         if (quatsion.index === displayQuatsion) {
           text = quatsion.quatsion;
@@ -114,6 +124,9 @@ export default function Sheet(props) {
     console.log("e");
     return <input />;
   };
+
+  var displayTab;
+
   return (
     <div>
       {rows !== false && (
@@ -123,7 +136,7 @@ export default function Sheet(props) {
             // color="rgb(255, 255, 255)"
           />
           <div style={header}>
-            <h2>שם הביקורת</h2>
+            <h2>{sheetTitle}</h2>
             <div style={headerInner}>
               <p>
                 {rows[0]._rawData[2]}
@@ -132,35 +145,34 @@ export default function Sheet(props) {
               </p>
             </div>
           </div>
+          <Tabs tab={tab} setTab={setTab} />
+          {tab}
+          {tab === "watch" ? (
+            (displayTab = <Table bikoretKind={bikoretKind} rows={rows} />)
+          ) : (
+            <></>
+          )}
+          {tab === "percent" ? (
+            (displayTab = <EditRate bikoretKind={bikoretKind} rows={rows} />)
+          ) : (
+            <></>
+          )}
+          {tab === "editOne" ? (
+            (displayTab = <EditOne bikoretKind={bikoretKind} rows={rows} />)
+          ) : (
+            <></>
+          )}
 
-          <EditOne rows={rows} />
-          {/* <Serch setDisplayQuatsion={setDisplayQuatsion} /> */}
-
-          {/* {displayQuatsion !== false && (
-            <DisplayQuatsion
-              rows={rows}
-              index={displayQuatsion}
-              rowData={rows[displayQuatsion]._rawData}
-            /> */}
-          {/* {displayQuatsion !== false && (
-            <DisplayQuatsion
-               rows={rows}
-              index={displayQuatsion}
-              rowData={rows[displayQuatsion]._rawData}
-            />
-
-            )} */}
-
-          <Table rows={rows} />
+          {/* {tab === "editOne" ? (displayTab = <Table rows={rows} />) : <></>} */}
+          {tab === "download" ? (
+            (displayTab = <Download sheet={sheetId} />)
+          ) : (
+            <></>
+          )}
         </div>
       )}
 
-      {rows === false && (
-        <p>
-          משיג מידע
-          {console.log("rows")}
-        </p>
-      )}
+      {rows === false && <p>משיג מידע</p>}
     </div>
   );
 }
